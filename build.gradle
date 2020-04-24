@@ -25,18 +25,23 @@ plugins {
 	id 'de.aaschmid.cpd' version '3.1'
 }
 
-group = 'com.knowledge.share.quiz'
+group = 'com.knowledge.share'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_13
 
 repositories {
 	mavenCentral()
+	jcenter {
+		url "http://oss.jfrog.org/artifactory/oss-snapshot-local/"
+	}
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	//implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'io.springfox:springfox-swagger2:3.0.0-SNAPSHOT'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0-SNAPSHOT'
+	implementation 'io.springfox:springfox-data-rest:3.0.0-SNAPSHOT'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.hubspot.slack:slack-base:1.8'
 	implementation 'com.hubspot.slack:slack-java-client:1.8'

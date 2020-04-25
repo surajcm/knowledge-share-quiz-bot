@@ -15,8 +15,8 @@ public class SlackController {
     private final AtomicLong counter = new AtomicLong();
     private static final String template = "Hello, %s!";
 
-    @GetMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+    @GetMapping("/hello")
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") final String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 

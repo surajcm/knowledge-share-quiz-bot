@@ -1,0 +1,13 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'io.springfox:springfox-swagger2:3.0.0-SNAPSHOT'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0-SNAPSHOT'
+    implementation 'io.springfox:springfox-data-rest:3.0.0-SNAPSHOT'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'com.hubspot.slack:slack-base:1.8'
+    implementation 'com.hubspot.slack:slack-java-client:1.8'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}

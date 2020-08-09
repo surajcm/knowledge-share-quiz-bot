@@ -2,3 +2,13 @@ logging.level:
   com.slack.api: DEBUG
 server:
   port: 3000
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #show-sql: true
+
+
+
+
+

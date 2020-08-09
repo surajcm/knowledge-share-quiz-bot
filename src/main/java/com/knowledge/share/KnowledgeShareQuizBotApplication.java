@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @ServletComponentScan
+//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class KnowledgeShareQuizBotApplication {
 
     public static void main(final String[] args) {

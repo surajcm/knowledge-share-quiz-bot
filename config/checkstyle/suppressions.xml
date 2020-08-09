@@ -20,4 +20,5 @@ WHAT AND WHY CHECKS SUPPRESSED
     <suppress files="UserDAOImpl.java" checks="MethodLength"/>
     <suppress files="SecurityServiceImpl.java" checks="IllegalCatch"/>
     <suppress files="UserServiceImpl.java" checks="IllegalCatch"/>
+    <suppress files="SlackApp.java" checks="MethodLength"/>
 </suppressions>

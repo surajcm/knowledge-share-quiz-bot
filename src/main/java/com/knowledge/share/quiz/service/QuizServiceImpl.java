@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -25,5 +26,31 @@ public class QuizServiceImpl implements QuizService {
         logger.info("Random number is :{}", random);
         Quiz[] quizArray = quizzes.toArray(new Quiz[quizzes.size() - 1]);
         return quizArray[random];
+    }
+
+    @Override
+    public Quiz generateRandomQuizNewImplementation() {
+        Quiz quiz = null;
+        logger.info("Inside generateRandomQuizNewImplementation quiz !!!");
+        long count = quizDAO.countOfQuizzes();
+        int random = new Random().nextInt((int) count);
+        logger.info("Random number is :{}", random);
+        Optional<Quiz> quizOptional = quizDAO.fetchQuizFromId((long) random);
+        if (quizOptional.isPresent()) {
+            quiz = quizOptional.get();
+        }
+        return quiz;
+    }
+
+    @Override
+    public Quiz getQuizFromId(final String id) {
+        Quiz quiz = null;
+        logger.info("Inside getQuizFromId  !!!");
+        Long idValue = Long.valueOf(id);
+        Optional<Quiz> quizOptional = quizDAO.fetchQuizFromId(idValue);
+        if (quizOptional.isPresent()) {
+            quiz = quizOptional.get();
+        }
+        return quiz;
     }
 }

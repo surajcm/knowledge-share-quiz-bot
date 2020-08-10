@@ -10,3 +10,6 @@
 
 This is a general purpose quiz bot, where users can input questions and run challenges against them.
 
+Please find the screenshot below, for a better view of what we have done so far.
+
+[![Chat screen](https://github.com/surajcm/knowledge-share-quiz-bot/raw/master/screens/knowledge_share_quiz_bot_in_action.png)](https://github.com/surajcm/knowledge-share-quiz-bot/raw/master/screens/knowledge_share_quiz_bot_in_action.png)

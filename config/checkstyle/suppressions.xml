@@ -21,4 +21,6 @@ WHAT AND WHY CHECKS SUPPRESSED
     <suppress files="SecurityServiceImpl.java" checks="IllegalCatch"/>
     <suppress files="UserServiceImpl.java" checks="IllegalCatch"/>
     <suppress files="SlackApp.java" checks="MethodLength"/>
+    <suppress files="QuizMapper.java" checks="MethodLength"/>
+    <suppress files="QuizResponseHandler.java" checks="MethodLength"/>
 </suppressions>

@@ -4,7 +4,7 @@ insert into quiz (id, question, option1, option2, option3, option4, answer, mess
 'A service to store and manage Docker container images',
 'A service to monitor performance via graphs',
 'A service to run Database As A Service',
-'B' ,
+'2' ,
 'ECR is Elastic Container Registry, which is a dockerhub for aws');
 
 insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
@@ -13,7 +13,7 @@ insert into quiz (id, question, option1, option2, option3, option4, answer, mess
 'A virtual server and ssd, static IP package with a low price',
 'A serverless method to run code natively for customers',
 'A database on demand for small businesses',
-'B' ,
+'2' ,
 'It is an easy way for some one with no/less cloud computing experience can setup a server in aws environment');
 
 insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
@@ -22,7 +22,7 @@ insert into quiz (id, question, option1, option2, option3, option4, answer, mess
 'A virtual server environment at a predictable monthly price',
 'Durable low cost storage which can be used to archive data',
 'A small village just outside of London',
-'A' ,
+'1' ,
 'It is a set of ready-made easy to deployable aws stack');
 
 insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
@@ -31,5 +31,5 @@ insert into quiz (id, question, option1, option2, option3, option4, answer, mess
 'Provides a hybrid storage service between on-prem and AWS',
 'Deploy scale and manage in-memory cache in the cloud',
 'Amazon relational database combining speed and simplicity',
-'A' ,
+'1' ,
 'Think of it as a cold storage, where you store data only for archival purpose, mostly for auditing and all');

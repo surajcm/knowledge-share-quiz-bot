@@ -36,19 +36,25 @@ public class QuizResponseHandler implements BlockActionHandler {
         logger.info("actionVal is {}", actionVal);
         String selectedAnswer = req.getPayload().getActions().get(0).getText().getText();
         logger.info("selectedAnswer is {}", selectedAnswer);
+        String user = ctx.getRequestUserId();
+        logger.info("user is {}", user);
         Quiz quiz = quizService.getQuizFromId(actionVal);
+        boolean status = selectedAnswer.equalsIgnoreCase(quiz.getAnswer());
         try {
             ctx.respond(res -> res
                     .deleteOriginal(true)
                     .responseType("in_channel")
-                    .blocks(blocks(quiz, selectedAnswer)));
+                    .blocks(blocks(quiz, selectedAnswer, user, status)));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         return ctx.ack();
     }
 
-    private List<LayoutBlock> blocks(final Quiz quiz, final String selectedAnswer) {
+    private List<LayoutBlock> blocks(final Quiz quiz,
+                                     final String selectedAnswer,
+                                     final String user,
+                                     final boolean status) {
         List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(quizMapper.questionBlock(quiz.getQuestion()));
         blocks.add(quizMapper.optionResultsBlock(quiz.getOption1(),
@@ -57,8 +63,9 @@ public class QuizResponseHandler implements BlockActionHandler {
                 quiz.getOption4(),
                 quiz.getAnswer(),
                 selectedAnswer));
-        //todo: get user and pass here
-        blocks.add(quizMapper.messageBlock(quiz.getMessage()));
+        blocks.add(quizMapper.messageBlock(quiz.getMessage(), user, status));
+        blocks.add(quizMapper.divider());
+        blocks.add(quizMapper.askAgain());
         return blocks;
     }
 

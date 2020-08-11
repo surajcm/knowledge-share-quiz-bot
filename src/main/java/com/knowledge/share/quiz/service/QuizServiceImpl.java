@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -20,16 +19,6 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public Quiz generateRandomQuiz() {
-        logger.info("Inside random quiz !!!");
-        List<Quiz> quizzes = quizDAO.fetchAllQuizFromDB();
-        int random = new Random().nextInt(quizzes.size());
-        logger.info("Random number is :{}", random);
-        Quiz[] quizArray = quizzes.toArray(new Quiz[quizzes.size() - 1]);
-        return quizArray[random];
-    }
-
-    @Override
-    public Quiz generateRandomQuizNewImplementation() {
         Quiz quiz = null;
         logger.info("Inside generateRandomQuizNewImplementation quiz !!!");
         long count = quizDAO.countOfQuizzes();

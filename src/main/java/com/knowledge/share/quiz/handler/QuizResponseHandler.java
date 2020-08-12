@@ -63,8 +63,9 @@ public class QuizResponseHandler implements BlockActionHandler {
                 quiz.getOption4(),
                 quiz.getAnswer(),
                 selectedAnswer));
-        blocks.add(quizMapper.messageBlock(quiz.getMessage(), user, status));
+        blocks.add(quizMapper.messageBlock(quiz.getMessage()));
         blocks.add(quizMapper.divider());
+        blocks.add(quizMapper.statusMessage(user, status));
         blocks.add(quizMapper.askAgain());
         return blocks;
     }

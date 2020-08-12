@@ -125,17 +125,19 @@ public class QuizMapper {
                                             final String answer,
                                             final String selectedAnswer) {
         StringBuilder builder = new StringBuilder();
+        int count = 1;
         for (String currentOption : optionsAsList) {
-            if (answer.equals("4")) {
+            if (answer.equals(String.valueOf(count))) {
                 builder.append(WHITE_CHECK_MARK)
                         .append('*').append(currentOption).append('*');
-            } else if (selectedAnswer.equals("4")) {
+            } else if (selectedAnswer.equals(String.valueOf(count))) {
                 builder.append(RED_CIRCLE)
                         .append('~').append(currentOption).append('~');
             } else {
                 builder.append(WHITE_CIRCLE).append(currentOption);
             }
             builder.append("\n");
+            count++;
         }
         return builder.toString();
     }
@@ -145,20 +147,31 @@ public class QuizMapper {
         return builder.elements(buttons(id)).build();
     }
 
-    public LayoutBlock messageBlock(final String message,
-                                    final String user,
-                                    final boolean status) {
+    public LayoutBlock messageBlock(final String message) {
         SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
-        return builder.text(message(message, user, status)).build();
+        return builder.text(message(message)).build();
     }
 
-    private TextObject message(final String message,
-                               final String user,
-                               final boolean status) {
+    public LayoutBlock statusMessage(final String user,
+                                    final boolean status) {
+        SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
+        return builder.text(statusMessageDetail(user, status)).build();
+    }
+
+    private TextObject message(final String message) {
         MarkdownTextObject.MarkdownTextObjectBuilder
                 objectBuilder = MarkdownTextObject.builder();
         StringBuilder builder = new StringBuilder();
         builder.append(message);
+        objectBuilder.text(builder.toString());
+        return objectBuilder.build();
+    }
+
+    private TextObject statusMessageDetail(final String user,
+                               final boolean status) {
+        MarkdownTextObject.MarkdownTextObjectBuilder
+                objectBuilder = MarkdownTextObject.builder();
+        StringBuilder builder = new StringBuilder();
         builder.append(buildStatusMessage(user, status));
         objectBuilder.text(builder.toString());
         return objectBuilder.build();

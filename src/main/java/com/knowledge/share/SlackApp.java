@@ -1,5 +1,6 @@
 package com.knowledge.share;
 
+import com.knowledge.share.quiz.handler.NextQuestionHandler;
 import com.knowledge.share.quiz.handler.QuizHandler;
 import com.knowledge.share.quiz.handler.QuizResponseHandler;
 import com.knowledge.share.quiz.handler.UpperCaseHandler;
@@ -22,27 +23,16 @@ public class SlackApp {
     @Autowired
     private QuizResponseHandler quizResponseHandler;
 
+    @Autowired
+    private NextQuestionHandler nextQuestionHandler;
+
     @Bean
     public App initSlackApp() {
         App app = new App();
         app.command("/hello", upperCaseHandler);
         app.command("/aws_quiz", quizHandler);
         app.blockAction(Pattern.compile("Answer-.*"), quizResponseHandler);
+        app.blockAction(Pattern.compile("Next-.*"), nextQuestionHandler);
         return app;
     }
-
-    /*@Bean
-    public UpperCaseHandler upperCaseHandler() {
-        return new UpperCaseHandler();
-    }
-
-    @Bean
-    public QuizHandler quizHandler() {
-        return new QuizHandler();
-    }
-
-    @Bean
-    public QuizResponseHandler quizResponseHandler() {
-        return new QuizResponseHandler();
-    }*/
 }

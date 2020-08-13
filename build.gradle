@@ -28,7 +28,9 @@ sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
     mavenCentral()
-    maven { url "http://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/" }
+    jcenter {
+        url "http://oss.jfrog.org/artifactory/oss-snapshot-local/"
+    }
 }
 
 

@@ -8,6 +8,7 @@ import com.slack.api.bolt.handler.builtin.BlockActionHandler;
 import com.slack.api.bolt.request.builtin.BlockActionRequest;
 import com.slack.api.bolt.response.Response;
 import com.slack.api.methods.SlackApiException;
+import com.slack.api.model.Attachment;
 import com.slack.api.model.block.LayoutBlock;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,11 +45,24 @@ public class QuizResponseHandler implements BlockActionHandler {
             ctx.respond(res -> res
                     .deleteOriginal(true)
                     .responseType("in_channel")
-                    .blocks(blocks(quiz, selectedAnswer, user, status)));
+                    .blocks(blocks(quiz, selectedAnswer, user, status))
+                    .attachments(attachments()));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         return ctx.ack();
+    }
+
+    private List<Attachment> attachments() {
+        List<Attachment> attachments = new ArrayList<>();
+        attachments.add(askAgainAttachment());
+        return attachments;
+    }
+
+    private Attachment askAgainAttachment() {
+        Attachment attachment = new Attachment();
+        attachment.setBlocks(attachmentBlock());
+        return attachment;
     }
 
     private List<LayoutBlock> blocks(final Quiz quiz,
@@ -66,6 +80,11 @@ public class QuizResponseHandler implements BlockActionHandler {
         blocks.add(quizMapper.messageBlock(quiz.getMessage()));
         blocks.add(quizMapper.divider());
         blocks.add(quizMapper.statusMessage(user, status));
+        return blocks;
+    }
+
+    private List<LayoutBlock> attachmentBlock() {
+        List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(quizMapper.askAgain());
         return blocks;
     }

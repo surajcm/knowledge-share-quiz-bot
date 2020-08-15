@@ -28,4 +28,13 @@ class QuizServiceImplTest {
         Quiz quiz = quizService.generateRandomQuiz();
         Assertions.assertNotNull(quiz);
     }
+
+    @Test
+    void verifyGetQuizFromId() {
+        Whitebox.setInternalState(quizService, "quizDAO", quizDAO);
+        when(quizDAO.fetchQuizFromId(anyLong()))
+                .thenReturn(Optional.of(Mockito.mock(Quiz.class)));
+        Quiz quiz = quizService.getQuizFromId("2");
+        Assertions.assertNotNull(quiz);
+    }
 }

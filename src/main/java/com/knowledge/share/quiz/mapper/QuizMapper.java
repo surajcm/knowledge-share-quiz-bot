@@ -78,45 +78,9 @@ public class QuizMapper {
         optionsAsList.add(option4);
         String message = generateFormattedMessage(optionsAsList, answer, selectedAnswer);
         logger.info(message);
-        StringBuilder builder = new StringBuilder();
-        if (answer.equals("1")) {
-            builder.append(WHITE_CHECK_MARK).append('*').append(option1).append('*');
-        } else if (selectedAnswer.equals("1")) {
-            builder.append(RED_CIRCLE).append('~').append(option1).append('~');
-        } else {
-            builder.append(WHITE_CIRCLE).append(option1);
-        }
-        builder.append("\n");
-
-        if (answer.equals("2")) {
-            builder.append(WHITE_CHECK_MARK).append('*').append(option2).append('*');
-        } else if (selectedAnswer.equals("2")) {
-            builder.append(RED_CIRCLE).append('~').append(option2).append('~');
-        } else {
-            builder.append(WHITE_CIRCLE).append(option2);
-        }
-        builder.append("\n");
-        if (answer.equals("3")) {
-            builder.append(WHITE_CHECK_MARK).append('*').append(option3).append('*');
-        } else if (selectedAnswer.equals("3")) {
-            builder.append(RED_CIRCLE).append('~').append(option3).append('~');
-        } else {
-            builder.append(WHITE_CIRCLE).append(option3);
-        }
-        builder.append("\n");
-
-        if (answer.equals("4")) {
-            builder.append(WHITE_CHECK_MARK).append('*').append(option4).append('*');
-        } else if (selectedAnswer.equals("4")) {
-            builder.append(RED_CIRCLE).append('~').append(option4).append('~');
-        } else {
-            builder.append(WHITE_CIRCLE).append(option4);
-        }
-        builder.append("\n");
-
         MarkdownTextObject.MarkdownTextObjectBuilder
                 textObjectBuilder = MarkdownTextObject.builder();
-        textObjectBuilder.text(builder.toString());
+        textObjectBuilder.text(message);
         SectionBlock.SectionBlockBuilder sectionBlockBuilder = SectionBlock.builder();
         return sectionBlockBuilder.text(textObjectBuilder.build()).build();
     }
@@ -205,4 +169,14 @@ public class QuizMapper {
         return DividerBlock.builder().build();
     }
 
+    public LayoutBlock okLetsDoThis() {
+        SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
+        return builder.text(okLetsDo()).build();
+    }
+
+    private TextObject okLetsDo() {
+        MarkdownTextObject.MarkdownTextObjectBuilder builder = MarkdownTextObject.builder();
+        builder.text("Ok. Let's do this :thinking_face:");
+        return builder.build();
+    }
 }

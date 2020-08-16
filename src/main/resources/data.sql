@@ -33,3 +33,12 @@ insert into quiz (id, question, option1, option2, option3, option4, answer, mess
 'Amazon relational database combining speed and simplicity',
 '1' ,
 'Think of it as a cold storage, where you store data only for archival purpose, mostly for auditing and all');
+
+insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
+(5, 'Which AWS service would be the best choice for long term data archival?',
+'S3',
+'CloudFront',
+'EFS',
+'Glacier',
+'4' ,
+'Glacier is the long term archival solution of AWS');

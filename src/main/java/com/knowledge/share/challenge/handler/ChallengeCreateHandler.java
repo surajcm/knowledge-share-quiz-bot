@@ -8,6 +8,8 @@ import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 import com.slack.api.bolt.response.Response;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.Attachment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 @Component
 public class ChallengeCreateHandler implements SlashCommandHandler {
+    private static final Logger logger = LogManager.getLogger(ChallengeCreateHandler.class);
 
     @Autowired
     private ChallengeMapper challengeMapper;
@@ -25,6 +28,7 @@ public class ChallengeCreateHandler implements SlashCommandHandler {
     public Response apply(final SlashCommandRequest req, final SlashCommandContext ctx)
             throws IOException, SlackApiException {
         String user = ctx.getRequestUserId();
+        logger.info("user is {}", user);
         SlashCommandResponse response = SlashCommandResponse.builder()
                 .blocks(challengeMapper.welcomeBlocks(user))
                 .attachments(attachments())
@@ -41,8 +45,8 @@ public class ChallengeCreateHandler implements SlashCommandHandler {
 
     private Attachment attachment() {
         Attachment attachment = new Attachment();
-        attachment.setFields(challengeMapper.createChallengeFields());
-        attachment.setThumbUrl("http://placekitten.com/g/200/200");
+        //attachment.setFields(challengeMapper.createChallengeFields());
+        //attachment.setThumbUrl("http://placekitten.com/g/200/200");
         attachment.setBlocks(challengeMapper.joinButtons());
         return attachment;
     }

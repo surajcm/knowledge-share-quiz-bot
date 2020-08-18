@@ -39,15 +39,11 @@ public class ChallengeCreateHandler implements SlashCommandHandler {
 
     private List<Attachment> attachments() {
         List<Attachment> attachments = new ArrayList<>();
-        attachments.add(attachment());
+        attachments.add(Attachment.builder()
+                .blocks(challengeMapper.joinButtons())
+                .fields(challengeMapper.createChallengeFields())
+                .thumbUrl("http://placekitten.com/g/200/200")
+                .build());
         return attachments;
-    }
-
-    private Attachment attachment() {
-        Attachment attachment = new Attachment();
-        //attachment.setFields(challengeMapper.createChallengeFields());
-        //attachment.setThumbUrl("http://placekitten.com/g/200/200");
-        attachment.setBlocks(challengeMapper.joinButtons());
-        return attachment;
     }
 }

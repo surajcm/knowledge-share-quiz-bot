@@ -4,8 +4,6 @@ import com.slack.api.model.block.ActionsBlock;
 import com.slack.api.model.block.DividerBlock;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.SectionBlock;
-import com.slack.api.model.block.composition.MarkdownTextObject;
-import com.slack.api.model.block.composition.TextObject;
 import com.slack.api.model.block.element.BlockElement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
 import static com.slack.api.model.block.composition.BlockCompositions.plainText;
 import static com.slack.api.model.block.element.BlockElements.asElements;
 import static com.slack.api.model.block.element.BlockElements.button;
@@ -39,30 +38,22 @@ public class QuizMapper {
     }
 
     public LayoutBlock questionBlock(final String question) {
-        SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
-        return builder.text(question(question)).build();
-    }
-
-    private TextObject question(final String question) {
-        MarkdownTextObject.MarkdownTextObjectBuilder builder = MarkdownTextObject.builder();
-        builder.text(question);
-        return builder.build();
+        return SectionBlock
+                .builder()
+                .text(markdownText(question))
+                .build();
     }
 
     public LayoutBlock optionBlock(final String op1, final String op2,
                                    final String op3, final String op4) {
-        SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
-        return builder.text(options(op1, op2, op3, op4)).build();
-    }
-
-    private TextObject options(final String op1, final String op2,
-                               final String op3, final String op4) {
-        MarkdownTextObject.MarkdownTextObjectBuilder builder = MarkdownTextObject.builder();
-        builder.text(WHITE_CIRCLE + op1 +
-                "\n :white_circle: " + op2 +
-                "\n:white_circle: " + op3 +
-                "\n:white_circle: " + op4);
-        return builder.build();
+        String message = WHITE_CIRCLE + op1 +
+                "\n " + WHITE_CIRCLE + op2 +
+                "\n " + WHITE_CIRCLE + op3 +
+                "\n " + WHITE_CIRCLE + op4;
+        return SectionBlock
+                .builder()
+                .text(markdownText(message))
+                .build();
     }
 
     public LayoutBlock optionResultsBlock(final String option1,
@@ -78,11 +69,10 @@ public class QuizMapper {
         optionsAsList.add(option4);
         String message = generateFormattedMessage(optionsAsList, answer, selectedAnswer);
         logger.info(message);
-        MarkdownTextObject.MarkdownTextObjectBuilder
-                textObjectBuilder = MarkdownTextObject.builder();
-        textObjectBuilder.text(message);
-        SectionBlock.SectionBlockBuilder sectionBlockBuilder = SectionBlock.builder();
-        return sectionBlockBuilder.text(textObjectBuilder.build()).build();
+        return SectionBlock
+                .builder()
+                .text(markdownText(message))
+                .build();
     }
 
     private String generateFormattedMessage(final List<String> optionsAsList,
@@ -112,33 +102,18 @@ public class QuizMapper {
     }
 
     public LayoutBlock messageBlock(final String message) {
-        SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
-        return builder.text(message(message)).build();
+        return SectionBlock
+                .builder()
+                .text(markdownText(message))
+                .build();
     }
 
     public LayoutBlock statusMessage(final String user,
-                                    final boolean status) {
-        SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
-        return builder.text(statusMessageDetail(user, status)).build();
-    }
-
-    private TextObject message(final String message) {
-        MarkdownTextObject.MarkdownTextObjectBuilder
-                objectBuilder = MarkdownTextObject.builder();
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
-        objectBuilder.text(builder.toString());
-        return objectBuilder.build();
-    }
-
-    private TextObject statusMessageDetail(final String user,
-                               final boolean status) {
-        MarkdownTextObject.MarkdownTextObjectBuilder
-                objectBuilder = MarkdownTextObject.builder();
-        StringBuilder builder = new StringBuilder();
-        builder.append(buildStatusMessage(user, status));
-        objectBuilder.text(builder.toString());
-        return objectBuilder.build();
+                                     final boolean status) {
+        return SectionBlock
+                .builder()
+                .text(markdownText(buildStatusMessage(user, status)))
+                .build();
     }
 
     private String buildStatusMessage(final String user, final boolean status) {
@@ -171,12 +146,7 @@ public class QuizMapper {
 
     public LayoutBlock okLetsDoThis() {
         SectionBlock.SectionBlockBuilder builder = SectionBlock.builder();
-        return builder.text(okLetsDo()).build();
-    }
-
-    private TextObject okLetsDo() {
-        MarkdownTextObject.MarkdownTextObjectBuilder builder = MarkdownTextObject.builder();
-        builder.text("Ok. Let's do this :thinking_face:");
-        return builder.build();
+        return builder.text(markdownText("Ok. Let's do this :thinking_face:"))
+                .build();
     }
 }

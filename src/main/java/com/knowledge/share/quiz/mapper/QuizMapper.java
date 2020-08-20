@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
@@ -56,44 +55,11 @@ public class QuizMapper {
                 .build();
     }
 
-    public LayoutBlock optionResultsBlock(final String option1,
-                                          final String option2,
-                                          final String option3,
-                                          final String option4,
-                                          final String answer,
-                                          final String selectedAnswer) {
-        List<String> optionsAsList = new LinkedList<>();
-        optionsAsList.add(option1);
-        optionsAsList.add(option2);
-        optionsAsList.add(option3);
-        optionsAsList.add(option4);
-        String message = generateFormattedMessage(optionsAsList, answer, selectedAnswer);
-        logger.info(message);
+    public LayoutBlock optionResultsBlock(final String message) {
         return SectionBlock
                 .builder()
                 .text(markdownText(message))
                 .build();
-    }
-
-    private String generateFormattedMessage(final List<String> optionsAsList,
-                                            final String answer,
-                                            final String selectedAnswer) {
-        StringBuilder builder = new StringBuilder();
-        int count = 1;
-        for (String currentOption : optionsAsList) {
-            if (answer.equals(String.valueOf(count))) {
-                builder.append(WHITE_CHECK_MARK)
-                        .append('*').append(currentOption).append('*');
-            } else if (selectedAnswer.equals(String.valueOf(count))) {
-                builder.append(RED_CIRCLE)
-                        .append('~').append(currentOption).append('~');
-            } else {
-                builder.append(WHITE_CIRCLE).append(currentOption);
-            }
-            builder.append("\n");
-            count++;
-        }
-        return builder.toString();
     }
 
     public LayoutBlock answers(final Long id) {

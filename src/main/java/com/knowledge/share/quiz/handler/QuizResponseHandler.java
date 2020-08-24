@@ -75,12 +75,22 @@ public class QuizResponseHandler implements BlockActionHandler {
                                      final boolean status,
                                      final String updatedOptions) {
         List<LayoutBlock> blocks = new ArrayList<>();
-        blocks.add(quizMapper.questionBlock(quiz.getQuestion()));
-        blocks.add(quizMapper.optionResultsBlock(updatedOptions));
-        blocks.add(quizMapper.messageBlock(quiz.getMessage()));
+        blocks.add(quizMapper.sectionWithMD(quiz.getQuestion()));
+        blocks.add(quizMapper.sectionWithMD(updatedOptions));
+        blocks.add(quizMapper.sectionWithMD(quiz.getMessage()));
         blocks.add(quizMapper.divider());
-        blocks.add(quizMapper.statusMessage(user, status));
+        String statusMessage = buildStatusMessage(user, status);
+        blocks.add(quizMapper.sectionWithMD(statusMessage));
         return blocks;
+    }
+
+    private String buildStatusMessage(final String user, final boolean status) {
+        if (status) {
+            return "\n\nNice work <@" + user + "> That's correct. :thumbsup:";
+        } else {
+            return "\n\nSorry, <@" + user + "> that's not right." +
+                    " Try again! :slightly_smiling_face:";
+        }
     }
 
     private String updateOptionsWithCorrectSelection(final Quiz quiz,

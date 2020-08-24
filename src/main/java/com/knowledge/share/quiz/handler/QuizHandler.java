@@ -21,6 +21,8 @@ import java.util.List;
 @Component
 public class QuizHandler implements SlashCommandHandler {
 
+    private static final String WHITE_CIRCLE = ":white_circle: ";
+
     @Autowired
     private QuizService quizService;
 
@@ -41,17 +43,18 @@ public class QuizHandler implements SlashCommandHandler {
 
     private List<LayoutBlock> blocks(final Quiz quiz) {
         List<LayoutBlock> blocks = new ArrayList<>();
-        blocks.add(quizMapper.okLetsDoThis());
-        blocks.add(quizMapper.questionBlock(quiz.getQuestion()));
+        blocks.add(quizMapper.sectionWithMD("Ok. Let's do this :thinking_face:"));
+        blocks.add(quizMapper.sectionWithMD(quiz.getQuestion()));
         return blocks;
     }
 
     private List<LayoutBlock> attachmentBlock(final Quiz quiz) {
         List<LayoutBlock> blocks = new ArrayList<>();
-        blocks.add(quizMapper.optionBlock(quiz.getOption1(),
-                quiz.getOption2(),
-                quiz.getOption3(),
-                quiz.getOption4()));
+        String message = WHITE_CIRCLE + quiz.getOption1() +
+                "\n " + WHITE_CIRCLE + quiz.getOption2() +
+                "\n " + WHITE_CIRCLE + quiz.getOption3() +
+                "\n " + WHITE_CIRCLE + quiz.getOption4();
+        blocks.add(quizMapper.sectionWithMD(message));
         blocks.add(quizMapper.answers(quiz.getId()));
         return blocks;
     }

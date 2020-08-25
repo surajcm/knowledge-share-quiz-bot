@@ -50,37 +50,33 @@ public class QuizResponseHandler implements BlockActionHandler {
             ctx.respond(res -> res
                     .deleteOriginal(true)
                     .responseType("in_channel")
-                    .blocks(blocks(quiz, user, status, updatedOptions))
-                    .attachments(attachments()));
+                    .blocks(blocks(quiz))
+                    .attachments(attachments(user, status, quiz.getMessage(), updatedOptions)));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         return ctx.ack();
     }
 
-    private List<Attachment> attachments() {
+    private List<Attachment> attachments(final String user, final boolean status, final String message,
+                                         final String updatedOptions) {
         List<Attachment> attachments = new ArrayList<>();
-        attachments.add(askAgainAttachment());
+        attachments.add(askAgainAttachment(user, status, message, updatedOptions));
         return attachments;
     }
 
-    private Attachment askAgainAttachment() {
+    private Attachment askAgainAttachment(final String user, final boolean status, final String message,
+                                          final String updatedOptions) {
         Attachment attachment = new Attachment();
-        attachment.setBlocks(attachmentBlock());
+        attachment.setBlocks(attachmentBlock(user, status, message, updatedOptions));
         return attachment;
     }
 
-    private List<LayoutBlock> blocks(final Quiz quiz,
-                                     final String user,
-                                     final boolean status,
-                                     final String updatedOptions) {
+    private List<LayoutBlock> blocks(final Quiz quiz) {
         List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(quizMapper.sectionWithMD(quiz.getQuestion()));
-        blocks.add(quizMapper.sectionWithMD(updatedOptions));
-        blocks.add(quizMapper.sectionWithMD(quiz.getMessage()));
         blocks.add(quizMapper.divider());
-        String statusMessage = buildStatusMessage(user, status);
-        blocks.add(quizMapper.sectionWithMD(statusMessage));
+
         return blocks;
     }
 
@@ -101,7 +97,7 @@ public class QuizResponseHandler implements BlockActionHandler {
         optionsAsList.add(quiz.getOption3());
         optionsAsList.add(quiz.getOption4());
         return generateFormattedMessage(optionsAsList,
-                        quiz.getAnswer(), selectedAnswer);
+                quiz.getAnswer(), selectedAnswer);
     }
 
     private String generateFormattedMessage(final List<String> optionsAsList,
@@ -125,9 +121,14 @@ public class QuizResponseHandler implements BlockActionHandler {
         return builder.toString();
     }
 
-    private List<LayoutBlock> attachmentBlock() {
+    private List<LayoutBlock> attachmentBlock(final String user, final boolean status,
+                                              final String message, final String updatedOptions) {
         List<LayoutBlock> blocks = new ArrayList<>();
+        blocks.add(quizMapper.sectionWithMD(updatedOptions));
+        blocks.add(quizMapper.sectionWithMD(message));
         blocks.add(quizMapper.askAgain());
+        String statusMessage = buildStatusMessage(user, status);
+        blocks.add(quizMapper.sectionWithMD(statusMessage));
         return blocks;
     }
 

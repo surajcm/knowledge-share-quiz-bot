@@ -18,10 +18,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.slack.api.model.block.Blocks.section;
+import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
+
 @Component
 public class QuizHandler implements SlashCommandHandler {
 
     private static final String WHITE_CIRCLE = ":white_circle: ";
+    private static final String LET_S_DO_THIS = "Ok. Let's do this :thinking_face:";
 
     @Autowired
     private QuizService quizService;
@@ -43,8 +47,8 @@ public class QuizHandler implements SlashCommandHandler {
 
     private List<LayoutBlock> blocks(final Quiz quiz) {
         List<LayoutBlock> blocks = new ArrayList<>();
-        blocks.add(quizMapper.sectionWithMD("Ok. Let's do this :thinking_face:"));
-        blocks.add(quizMapper.sectionWithMD(quiz.getQuestion()));
+        blocks.add(section(s -> s.text(markdownText(LET_S_DO_THIS))));
+        blocks.add(section(s -> s.text(markdownText(quiz.getQuestion()))));
         return blocks;
     }
 
@@ -54,20 +58,16 @@ public class QuizHandler implements SlashCommandHandler {
                 "\n " + WHITE_CIRCLE + quiz.getOption2() +
                 "\n " + WHITE_CIRCLE + quiz.getOption3() +
                 "\n " + WHITE_CIRCLE + quiz.getOption4();
-        blocks.add(quizMapper.sectionWithMD(message));
+        blocks.add(section(s -> s.text(markdownText(message))));
         blocks.add(quizMapper.answers(quiz.getId()));
         return blocks;
     }
 
-    private Attachment optionsAsAttachments(final Quiz quiz) {
-        Attachment attachment = new Attachment();
-        attachment.setBlocks(attachmentBlock(quiz));
-        return attachment;
-    }
-
     private List<Attachment> attachments(final Quiz quiz) {
         List<Attachment> attachments = new ArrayList<>();
-        attachments.add(optionsAsAttachments(quiz));
+        attachments.add(Attachment.builder()
+                .blocks(attachmentBlock(quiz))
+                .build());
         return attachments;
     }
 }

@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.slack.api.model.block.Blocks.divider;
+import static com.slack.api.model.block.Blocks.section;
+import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
+
 @Component
 public class QuizResponseHandler implements BlockActionHandler {
     private static final Logger logger = LogManager.getLogger(QuizResponseHandler.class);
@@ -74,9 +78,8 @@ public class QuizResponseHandler implements BlockActionHandler {
 
     private List<LayoutBlock> blocks(final Quiz quiz) {
         List<LayoutBlock> blocks = new ArrayList<>();
-        blocks.add(quizMapper.sectionWithMD(quiz.getQuestion()));
-        blocks.add(quizMapper.divider());
-
+        blocks.add(section(s -> s.text(markdownText(quiz.getQuestion()))));
+        blocks.add(divider());
         return blocks;
     }
 
@@ -124,11 +127,12 @@ public class QuizResponseHandler implements BlockActionHandler {
     private List<LayoutBlock> attachmentBlock(final String user, final boolean status,
                                               final String message, final String updatedOptions) {
         List<LayoutBlock> blocks = new ArrayList<>();
-        blocks.add(quizMapper.sectionWithMD(updatedOptions));
-        blocks.add(quizMapper.sectionWithMD(message));
+
+        blocks.add(section(s -> s.text(markdownText(updatedOptions))));
+        blocks.add(section(s -> s.text(markdownText(message))));
         blocks.add(quizMapper.askAgain());
         String statusMessage = buildStatusMessage(user, status);
-        blocks.add(quizMapper.sectionWithMD(statusMessage));
+        blocks.add(section(s -> s.text(markdownText(statusMessage))));
         return blocks;
     }
 

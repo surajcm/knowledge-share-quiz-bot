@@ -1,15 +1,12 @@
 package com.knowledge.share.quiz.mapper;
 
 import com.slack.api.model.block.ActionsBlock;
-import com.slack.api.model.block.DividerBlock;
 import com.slack.api.model.block.LayoutBlock;
-import com.slack.api.model.block.SectionBlock;
 import com.slack.api.model.block.element.BlockElement;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
 import static com.slack.api.model.block.composition.BlockCompositions.plainText;
 import static com.slack.api.model.block.element.BlockElements.asElements;
 import static com.slack.api.model.block.element.BlockElements.button;
@@ -30,13 +27,6 @@ public class QuizMapper {
         );
     }
 
-    public LayoutBlock sectionWithMD(final String question) {
-        return SectionBlock
-                .builder()
-                .text(markdownText(question))
-                .build();
-    }
-
     public LayoutBlock answers(final Long id) {
         return ActionsBlock.builder().elements(buttons(id)).build();
     }
@@ -53,9 +43,5 @@ public class QuizMapper {
                 button(b -> b.actionId("Next-B")
                         .text(plainText(pt -> pt.text("NO"))).value("NO"))
         );
-    }
-
-    public LayoutBlock divider() {
-        return DividerBlock.builder().build();
     }
 }

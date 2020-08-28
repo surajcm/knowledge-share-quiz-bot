@@ -42,3 +42,30 @@ insert into quiz (id, question, option1, option2, option3, option4, answer, mess
 'Glacier',
 '4' ,
 'Glacier is the long term archival solution of AWS');
+
+insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
+(6, 'Under the shared responsibility model, which of the following is the customer responsible for?',
+'Ensuring that disk drives are wiped after use. ',
+'Ensuring that firmware is updated on hardware devices.',
+'Ensuring that data is encrypted at rest.',
+'Ensuring that network cables are category six or higher.',
+'3' ,
+'Data saved and moved inside aws should be encrypted');
+
+insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
+(7, 'What AWS team assists customers with accelerating cloud adoption through paid engagements in any of several specialty practice areas?',
+'AWS Enterprise Support',
+'AWS Solutions Architects',
+'AWS Professional Services',
+'AWS Account Managers',
+'3' ,
+'https://aws.amazon.com/professional-services/');
+
+insert into quiz (id, question, option1, option2, option3, option4, answer, message) values
+(8, ' Distributing workloads across multiple Availability Zones supports which cloud architecture design principle?',
+'Implement automation',
+'Design for agility.',
+'Design for failure.',
+'Implement elasticity.',
+'3' ,
+'Think about disaster recovery solution');

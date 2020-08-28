@@ -65,15 +65,10 @@ public class QuizResponseHandler implements BlockActionHandler {
     private List<Attachment> attachments(final String user, final boolean status, final String message,
                                          final String updatedOptions) {
         List<Attachment> attachments = new ArrayList<>();
-        attachments.add(askAgainAttachment(user, status, message, updatedOptions));
+        attachments.add(Attachment.builder()
+                .blocks(attachmentBlock(user, status, message, updatedOptions))
+                .build());
         return attachments;
-    }
-
-    private Attachment askAgainAttachment(final String user, final boolean status, final String message,
-                                          final String updatedOptions) {
-        Attachment attachment = new Attachment();
-        attachment.setBlocks(attachmentBlock(user, status, message, updatedOptions));
-        return attachment;
     }
 
     private List<LayoutBlock> blocks(final Quiz quiz) {
@@ -127,7 +122,6 @@ public class QuizResponseHandler implements BlockActionHandler {
     private List<LayoutBlock> attachmentBlock(final String user, final boolean status,
                                               final String message, final String updatedOptions) {
         List<LayoutBlock> blocks = new ArrayList<>();
-
         blocks.add(section(s -> s.text(markdownText(updatedOptions))));
         blocks.add(section(s -> s.text(markdownText(message))));
         blocks.add(quizMapper.askAgain());

@@ -36,13 +36,17 @@ public class QuizHandler implements SlashCommandHandler {
     @Override
     public Response apply(final SlashCommandRequest req, final SlashCommandContext ctx)
             throws IOException, SlackApiException {
+        return ctx.ack(response());
+    }
+
+    public SlashCommandResponse response() {
         Quiz quiz = quizService.generateRandomQuiz();
         SlashCommandResponse response = SlashCommandResponse.builder()
                 .blocks(blocks(quiz))
                 .attachments(attachments(quiz))
                 .responseType("in_channel")
                 .build();
-        return ctx.ack(response);
+        return response;
     }
 
     private List<LayoutBlock> blocks(final Quiz quiz) {

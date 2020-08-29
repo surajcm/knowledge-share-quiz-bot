@@ -22,7 +22,8 @@ public class QuizServiceImpl implements QuizService {
         Quiz quiz = null;
         logger.info("Inside generateRandomQuizNewImplementation quiz !!!");
         long count = quizDAO.countOfQuizzes();
-        int random = new Random().nextInt((int) count);
+        int random = new Random().nextInt((int) count - 1);
+        random++;
         logger.info("Random number is :{}", random);
         Optional<Quiz> quizOptional = quizDAO.fetchQuizFromId((long) random);
         if (quizOptional.isPresent()) {

@@ -2,10 +2,12 @@ package com.knowledge.share;
 
 import com.knowledge.share.challenge.handler.ChallengeCreateHandler;
 import com.knowledge.share.quiz.handler.NextQuestionHandler;
+import com.knowledge.share.quiz.handler.QuizEventHandler;
 import com.knowledge.share.quiz.handler.QuizHandler;
 import com.knowledge.share.quiz.handler.QuizResponseHandler;
 import com.knowledge.share.quiz.handler.UpperCaseHandler;
 import com.slack.api.bolt.App;
+import com.slack.api.model.event.AppMentionEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,9 @@ public class SlackApp {
     @Autowired
     private ChallengeCreateHandler challengeCreateHandler;
 
+    @Autowired
+    private QuizEventHandler quizEventHandler;
+
     @Bean
     public App initSlackApp() {
         App app = new App();
@@ -38,6 +43,7 @@ public class SlackApp {
         app.command("/aws_challenge", challengeCreateHandler);
         app.blockAction(Pattern.compile("Answer-.*"), quizResponseHandler);
         app.blockAction(Pattern.compile("Next-.*"), nextQuestionHandler);
+        app.event(AppMentionEvent.class, quizEventHandler);
         return app;
     }
 }

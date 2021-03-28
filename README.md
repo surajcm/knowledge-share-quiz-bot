@@ -13,3 +13,7 @@ This is a general purpose quiz bot, where users can input questions and run chal
 Please find the screenshot below, for a better view of what we have done so far.
 
 [![Chat screen](https://github.com/surajcm/knowledge-share-quiz-bot/raw/master/screens/knowledge_share_quiz_bot_in_action.png)](https://github.com/surajcm/knowledge-share-quiz-bot/raw/master/screens/knowledge_share_quiz_bot_in_action.png)
+
+#### Swagger UI
+
+Please check at http://localhost:3000/swagger-ui.html

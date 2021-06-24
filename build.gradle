@@ -15,7 +15,7 @@ buildscript {
 plugins {
 	id 'java'
 	id 'idea'
-	id 'org.springframework.boot' version '2.4.4'
+	id 'org.springframework.boot' version '2.5.1'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	//id 'net.ltgt.errorprone' version '0.8.1'
 	//id 'com.github.spotbugs' version '1.6.8' apply false
@@ -28,7 +28,7 @@ version = '0.0.1-SNAPSHOT'
 repositories {
     mavenCentral()
     jcenter {
-        url "http://oss.jfrog.org/artifactory/oss-snapshot-local/"
+        url "https://oss.jfrog.org/artifactory/oss-snapshot-local/"
     }
 }
 

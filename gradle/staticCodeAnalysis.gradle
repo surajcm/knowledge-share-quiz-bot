@@ -35,22 +35,22 @@ jacoco {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
+        xml.required = true
     }
 }
 
 tasks.withType(Checkstyle) {
     reports {
-        xml.enabled false
-        html.enabled true
+        xml.required = false
+        html.required = true
         html.stylesheet resources.text.fromFile('config/checkstyle/xsl/checkstyle-simple.xsl')
     }
 }
 
 tasks.withType(Pmd) {
     reports {
-        xml.enabled false
-        html.enabled true
+        xml.required = false
+        html.required = true
     }
 }
 cpd {
@@ -61,8 +61,8 @@ cpd {
 
 cpdCheck {
     reports {
-        text.enabled = true
-        xml.enabled = false
+        text.required = true
+        xml.required = false
     }
     source = sourceSets.main.allJava
 }

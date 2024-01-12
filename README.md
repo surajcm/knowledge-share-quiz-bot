@@ -33,4 +33,4 @@ Give a ⭐️ if this project helped you!
 
 ## Swagger UI
 
-Please check at http://localhost:3000/swagger-ui.html
+Please check at http://localhost:3000/swagger-ui/index.html

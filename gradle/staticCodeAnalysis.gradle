@@ -4,7 +4,7 @@ apply plugin: 'jacoco'
 //apply plugin: 'com.github.spotbugs'
 
 checkstyle {
-    toolVersion = '10.13.0'
+    toolVersion = '10.14.1'
     ignoreFailures = false
     maxWarnings = 0
     checkstyleMain {
@@ -39,7 +39,7 @@ jacocoTestReport {
     }
 }
 
-tasks.withType(Checkstyle) {
+tasks.withType(Checkstyle).configureEach {
     reports {
         xml.required = false
         html.required = true
@@ -47,7 +47,7 @@ tasks.withType(Checkstyle) {
     }
 }
 
-tasks.withType(Pmd) {
+tasks.withType(Pmd).configureEach {
     reports {
         xml.required = false
         html.required = true

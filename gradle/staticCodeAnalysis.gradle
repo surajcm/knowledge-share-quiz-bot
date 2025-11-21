@@ -53,18 +53,5 @@ tasks.withType(Pmd).configureEach {
         html.required = true
     }
 }
-cpd {
-    toolVersion = '6.21.0'
-    minimumTokenCount = 40
-    ignoreFailures = true
-}
-
-cpdCheck {
-    reports {
-        text.required = true
-        xml.required = false
-    }
-    source = sourceSets.main.allJava
-}
 
 check.dependsOn jacocoTestCoverageVerification

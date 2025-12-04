@@ -1,13 +1,12 @@
 buildscript {
     ext {
         applicationDefaultJvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005']
-        spotbugsVersion = '1.6.8'
         toolVersion = '3.1.10'
     }
     repositories {
         mavenCentral()
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url = uri("https://plugins.gradle.org/m2/")
         }
     }
 }
@@ -15,10 +14,8 @@ buildscript {
 plugins {
 	id 'java'
 	id 'idea'
-	id 'org.springframework.boot' version '3.4.1'
+	id 'org.springframework.boot' version '3.5.8'
 	id 'io.spring.dependency-management' version '1.1.7'
-	//id 'net.ltgt.errorprone' version '0.8.1'
-	//id 'com.github.spotbugs' version '1.6.8' apply false
 }
 
 group = 'com.knowledge.share'

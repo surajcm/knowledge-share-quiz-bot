@@ -1,10 +1,9 @@
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'jacoco'
-//apply plugin: 'com.github.spotbugs'
 
 checkstyle {
-    toolVersion = '10.26.1'
+    toolVersion = '12.2.0'
     ignoreFailures = false
     maxWarnings = 0
     checkstyleMain {
@@ -16,13 +15,8 @@ checkstyle {
     }
 }
 
-//spotbugs {
-    //toolVersion = '3.1.12'
-    //ignoreFailures = true
-//}
-
 pmd {
-    toolVersion = '7.18.0'
+    toolVersion = '7.19.0'
     ignoreFailures = true
     ruleSetFiles = files("config/pmd/ruleset.xml")
     ruleSets = []
@@ -43,7 +37,7 @@ tasks.withType(Checkstyle).configureEach {
     reports {
         xml.required = false
         html.required = true
-        html.stylesheet resources.text.fromFile('config/checkstyle/xsl/checkstyle-simple.xsl')
+        html.stylesheet = resources.text.fromFile('config/checkstyle/xsl/checkstyle-simple.xsl')
     }
 }
 

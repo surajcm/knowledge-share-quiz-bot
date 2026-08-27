@@ -5,7 +5,7 @@ dependencies {
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.0'
     implementation 'com.slack.api:bolt-servlet:1.46.0'
-    implementation 'com.slack.api:bolt-jakarta-servlet:1.46.0'
+    implementation 'com.slack.api:bolt-jakarta-servlet:1.51.0'
 
     implementation 'com.h2database:h2'
     implementation 'com.squareup.okhttp3:okhttp:5.3.2'

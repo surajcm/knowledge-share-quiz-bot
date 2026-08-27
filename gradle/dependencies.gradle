@@ -4,7 +4,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.0'
-    implementation 'com.slack.api:bolt-servlet:1.46.0'
+    implementation 'com.slack.api:bolt-servlet:1.51.0'
     implementation 'com.slack.api:bolt-jakarta-servlet:1.46.0'
 
     implementation 'com.h2database:h2'
